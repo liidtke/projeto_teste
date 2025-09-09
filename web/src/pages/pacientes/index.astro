@@ -1,0 +1,9 @@
+---
+export const prerender = false;
+import Layout from '../../layouts/Layout.astro'
+import Patients from "../../components/Patients.jsx"
+---
+<Layout>
+<Patients client:load></Patients>
+</Layout>
+

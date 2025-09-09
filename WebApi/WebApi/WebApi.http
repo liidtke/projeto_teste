@@ -1,6 +1,51 @@
-@WebApi_HostAddress = http://localhost:5100
+@WebApi_HostAddress = http://localhost:5000
 
 GET {{WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+
+GET {{WebApi_HostAddress}}/api/patients
+Accept: application/json
+
+### POSt
+# curl 'http://localhost:5000/api/patients' 
+#  -X POST 
+#  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0' 
+#  -H 'Accept: application/json, text/plain, */*' 
+#  -H 'Accept-Language: en-US,pt-BR;q=0.7,en;q=0.3' 
+#  -H 'Accept-Encoding: gzip, deflate, br, zstd' 
+#  -H 'Content-Type: application/json' 
+#  -H 'Origin: http://localhost:4321' 
+#  -H 'Connection: keep-alive' 
+#  -H 'Referer: http://localhost:4321/' 
+#  -H 'Sec-Fetch-Dest: empty' 
+#  -H 'Sec-Fetch-Mode: cors' 
+#  -H 'Sec-Fetch-Site: same-site' 
+#  -H 'Priority: u=0' 
+#  --data-raw '{"id":0,"name":"aa","phone":"199811","email":"aa@aa.com","gender":""}'
+POST http://localhost:5000/api/patients
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0
+Accept: application/json, text/plain, */*
+Accept-Language: en-US,pt-BR;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate, br, zstd
+Origin: http://localhost:4321
+Connection: keep-alive
+Referer: http://localhost:4321/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+Priority: u=0
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "aa",
+  "phone": "199811",
+  "email": "aa@aa.com",
+  "gender": 0
+}
+
+###
+
