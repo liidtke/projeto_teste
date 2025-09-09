@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using WebApi.Domain.SharedKernel;
 namespace WebApi.Domain;
 
@@ -10,8 +11,7 @@ public class Triage
     public Patient Patient { get; set; }
     
     public int PatientArrivalId { get; set; }
-    public Patient PatientArrival { get; set; }
-    
+    public PatientArrival PatientArrival { get; set; }
     
     public string Symptoms { get; set; }
     public string ArterialPressure { get; set; }
@@ -19,8 +19,6 @@ public class Triage
     public decimal Height { get; set; }
 
     public int KindId { get; set; } = 1;
-    [NotMapped]
-    public Kind Kind => Enumeration.FromValue<Kind>(KindId); 
 }
 
 public record Kind : Enumeration

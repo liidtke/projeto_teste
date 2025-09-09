@@ -8,7 +8,6 @@ namespace WebApi.Controllers;
 [ApiController]
 public class PatientsController : ControllerBase
 {
- 
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] PatientQueryParams input, [FromServices] PatientQuery query)
     {

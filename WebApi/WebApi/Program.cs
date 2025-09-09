@@ -26,6 +26,7 @@ builder.Services.AddScoped<UpdatePatientCommand>();
 builder.Services.AddScoped<PatientArrivalsQuery>();
 builder.Services.AddScoped<PatientQuery>();
 builder.Services.AddScoped<TriageQuery>();
+builder.Services.AddScoped<GetNextNumberQuery>();
 
 var app = builder.Build();
 

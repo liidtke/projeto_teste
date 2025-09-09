@@ -26,7 +26,7 @@ public class TriagesController : ControllerBase
 
     
     [HttpPost]
-    public async Task<IActionResult> Put([FromBody] Triage p, [FromServices] CreateTriageCommand command)
+    public async Task<IActionResult> Put([FromBody] TriageInputModel p, [FromServices] CreateTriageCommand command)
     {
         var result = await command.InsertTriage(p);
         return Output.FromResult(result);

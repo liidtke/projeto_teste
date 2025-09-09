@@ -9,6 +9,10 @@ Accept: application/json
 GET {{WebApi_HostAddress}}/api/patients
 Accept: application/json
 
+### get some
+GET {{WebApi_HostAddress}}/api/patients?withArrival=true
+Accept: application/json
+
 ### POSt
 # curl 'http://localhost:5000/api/patients' 
 #  -X POST 

@@ -10,23 +10,23 @@ namespace WebApi.Controllers;
 public class PatientArrivalsController : ControllerBase
 {
 
-    [HttpGet("next")]
-    public async Task<IActionResult> Get([FromQuery] PatientArrivalsQueryParams input, [FromServices] PatientArrivalsQuery query, IIncrementalIdCacheService cacheService)
+    [HttpGet("current")]
+    public async Task<IActionResult> GetCurrentNumber([FromQuery] PatientArrivalsQueryParams input, [FromServices] PatientArrivalsQuery query, IIncrementalIdCacheService cacheService)
     {
-        var number = cacheService.GetCurrentValue("Arrival");
-        if (number == null)
-        {
-            return NoContent();
-        }
-        
-        var currentNumber = cacheService.NextNumber("Queue");
-        
+        var currentNumber = cacheService.GetCurrentValue("Queue");
+
         var result = await query.GetPatientArrival(new PatientArrivalsQueryParams()
         {
             SequentialNumber = currentNumber,
         });
-        
-        return Output.FromResult(result);
+
+        return Output.FromResult(result, x => x.FirstOrDefault());
+    }
+    [HttpGet("next")]
+    public async Task<IActionResult> Get([FromServices] GetNextNumberQuery query)
+    {
+        var result = await query.Handle();
+        return Output.FromResult(result, x => x.FirstOrDefault());
     }
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] PatientArrivalsQueryParams input, [FromServices] PatientArrivalsQuery query)
@@ -53,7 +53,7 @@ public class PatientArrivalsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Put([FromBody] PatientArrival p, [FromServices] CreateArrivalCommand command)
+    public async Task<IActionResult> Put([FromBody] PatientArrivalInputModel p, [FromServices] CreateArrivalCommand command)
     {
         var result = await command.InsertArrival(p);
         return Output.FromResult(result);

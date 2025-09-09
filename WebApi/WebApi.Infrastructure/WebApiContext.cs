@@ -17,7 +17,7 @@ public class WebApiContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
-        modelBuilder.Entity<Triage>().HasOne(x => x.Patient).WithOne().OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Triage>().HasOne(x => x.Patient).WithMany().OnDelete(DeleteBehavior.Restrict);
     }
 
 }

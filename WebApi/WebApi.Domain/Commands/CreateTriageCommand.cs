@@ -2,6 +2,22 @@ using WebApi.Domain.SharedKernel;
 
 namespace WebApi.Domain.Commands;
 
+public class TriageInputModel
+{
+    public int Id { get; set; }
+    
+    public int PatientId { get; set; }
+    
+    public int PatientArrivalId { get; set; }
+    
+    public string Symptoms { get; set; }
+    public string ArterialPressure { get; set; }
+    public decimal Weight { get; set; }
+    public decimal Height { get; set; }
+
+    public int KindId { get; set; } = 1;
+}
+
 public class CreateTriageCommand
 {
     private readonly IRepository<Triage> _triageRepository;
@@ -11,10 +27,20 @@ public class CreateTriageCommand
         _triageRepository = triageRepository;
     }
 
-    public async Task<Result<Triage>> InsertTriage(Triage triage)
+    public async Task<Result<Triage>> InsertTriage(TriageInputModel input)
     {
-        if (triage == null)
+        if (input == null)
             return Result.Validation<Triage>("Triage não pode ser nulo");
+
+        var triage = new Triage()
+        {
+            PatientId = input.PatientId,
+            PatientArrivalId = input.PatientArrivalId,
+            Symptoms = input.Symptoms,
+            ArterialPressure = input.ArterialPressure,
+            Weight = input.Weight,
+            Height = input.Height,
+        };
 
         // Validar todos os campos
         var validationResult = ValidateTriage.Validate(triage);

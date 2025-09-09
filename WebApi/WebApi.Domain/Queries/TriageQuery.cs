@@ -32,7 +32,7 @@ public class TriageQuery
             query = query.Where(x => x.PatientId == p.PatientId);
         }
 
-        var items = await query.Take(p.Count).ToListAsync();
+        var items = await query.Include(x => x.Patient).Include(x => x.PatientArrival).Take(p.Count).ToListAsync();
         return Result.Success(items);
     }
 }

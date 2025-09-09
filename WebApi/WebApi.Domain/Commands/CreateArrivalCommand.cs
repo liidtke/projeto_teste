@@ -13,19 +13,26 @@ public class CreateArrivalCommand
         this.cache = cache;
     }
 
-    public async Task<Result<PatientArrival>> InsertArrival(PatientArrival arrival)
+    public async Task<Result<PatientArrival>> InsertArrival(PatientArrivalInputModel input)
     {
         var number = cache.NextNumber("Arrival");
-        if (arrival == null)
-            return Result.Validation<PatientArrival>("PatientArrival não pode ser nulo");
+        if (input == null)
+            return Result.Validation<PatientArrival>("Paciente não pode ser nulo");
+
+        var arrival = new PatientArrival()
+        {
+            PatientId = input.PatientId,
+            Arrival = DateTime.Now,
+            Status = input.Status,
+            SequentialNumber = number,
+        };
 
         // Validar todos os campos
         var validationResult = ValidateArrival.Validate(arrival);
         if (!validationResult.IsSuccess)
             return validationResult;
 
-        arrival.SequentialNumber = number;
-        
+
         // Adicionar ao repositório
         _arrivalRepository.Add(arrival);
 
@@ -67,4 +74,13 @@ public static class ValidateArrival
 
         return result; // Retorna com as validações
     }
+}
+
+public class PatientArrivalInputModel
+{
+    public int Id { get; set; }
+
+    public int PatientId { get; set; }
+    public DateTime? Arrival { get; set; }
+    public ArrivalStatus Status { get; set; }
 }

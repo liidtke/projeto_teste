@@ -7,6 +7,7 @@ public class PatientArrivalsQueryParams
     public int? Id { get; set; }
     public int? PatientId { get; set; }
     public int? SequentialNumber { get; set; }
+    public ArrivalStatus? Status { get; set; }
     public int Count { get; set; } = 50;
 }
 
@@ -35,10 +36,15 @@ public class PatientArrivalsQuery
 
         if (p.SequentialNumber.HasValue)
         {
-            query = query.Where(x => x.SequentialNumber == p.SequentialNumber); 
+            query = query.Where(x => x.SequentialNumber == p.SequentialNumber && x.Status == ArrivalStatus.Pending); 
         }
 
-        var items = await query.Take(p.Count).ToListAsync();
+        if (p.Status.HasValue)
+        {
+            query = query.Where(x => x.Status == p.Status);
+        }
+
+        var items = await query.Include(x=>x.Patient).Take(p.Count).ToListAsync();
         return Result.Success(items);
     }
 }

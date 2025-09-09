@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Infrastructure;
 
@@ -11,9 +12,11 @@ using WebApi.Infrastructure;
 namespace WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(WebApiContext))]
-    partial class WebApiContextModelSnapshot : ModelSnapshot
+    [Migration("20250909182150_Initial2")]
+    partial class Initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,7 +134,7 @@ namespace WebApi.Infrastructure.Migrations
 
             modelBuilder.Entity("WebApi.Domain.Triage", b =>
                 {
-                    b.HasOne("WebApi.Domain.PatientArrival", "PatientArrival")
+                    b.HasOne("WebApi.Domain.Patient", "PatientArrival")
                         .WithMany()
                         .HasForeignKey("PatientArrivalId")
                         .OnDelete(DeleteBehavior.Cascade)

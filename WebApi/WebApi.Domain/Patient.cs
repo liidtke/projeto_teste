@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace WebApi.Domain;
 
 public class Patient
@@ -15,6 +16,9 @@ public class Patient
     public string Email { get; set; }
     
     public Gender Gender { get; set; }
+    
+    [NotMapped]
+    public int PatientArrivalId { get; set; }
 }
 
 
