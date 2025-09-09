@@ -68,7 +68,8 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
     }
     catch (Exception e)
     {
-        //ignore
+        var logger = scope.ServiceProvider.GetService<ILogger<Program>>();
+        logger.LogError(e, "Error applying migrations");
     }
 }
 app.Run();
